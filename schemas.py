@@ -4,7 +4,7 @@ class ProductBase(BaseModel):
     price: int
     amount: int
     name: str
-
+    
 
 class ProductCreate(ProductBase):
     pass
@@ -12,7 +12,7 @@ class ProductCreate(ProductBase):
 
 class Product(ProductBase):
     id: int
-    category_id: int
+    category_id: int | None
 
     class Config:
         orm_mode = True
