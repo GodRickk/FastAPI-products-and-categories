@@ -7,6 +7,25 @@ def get_products(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Product).offset(skip).limit(limit).all()
 
 
+def get_products_with_filters(db: Session, skip: int = 0, limit: int = 100,
+                              min_price: int = None, max_price: int = None,
+                              min_amount: int = None, max_amount: int = None, 
+                              category_id: int = None):
+    query = db.query(models.Product)
+
+    if min_price is not None:
+        query = query.filter(models.Product.price >= min_price)
+    if max_price is not None:
+        query = query.filter(models.Product.price <= max_price)
+    if min_amount is not None:
+        query = query.filter(models.Product.amount >= min_amount)
+    if max_amount is not None:
+        query = query.filter(models.Product.amount <= max_amount)
+    if category_id is not None:
+        query = query.filter(models.Product.category_id == category_id)
+    
+    return query.offset(skip).limit(limit).all()
+
 def get_product(db: Session, product_id: int):
     return db.query(models.Product).filter(models.Product.id == product_id).first()
 

@@ -41,10 +41,24 @@ def create_product_with_category(product: schemas.ProductCreate, db: Session = D
     return crud.create_product_with_category(db=db, product=product)
 
 
-@app.get("/products/", response_model=list[schemas.Product])
+'''@app.get("/products/", response_model=list[schemas.Product])
 def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     products = crud.get_products(db, skip=skip, limit=limit)
+    return products'''
+
+
+@app.get("/products/", response_model=list[schemas.Product])
+def read_products(skip: int = 0, limit: int = 100,
+                  min_price: int = None, max_price: int = None,
+                  min_amount: int = None, max_amount: int = None,
+                  category_id: int = None,
+                  db: Session = Depends(get_db)):
+    products = crud.get_products_with_filters(db=db, skip=skip, limit=limit,
+                                              min_price=min_price, max_price=max_price,
+                                              min_amount=min_amount, max_amount=max_amount,
+                                              category_id=category_id)
     return products
+
 
 
 @app.get("/products/{product_id}", response_model=schemas.Product)
