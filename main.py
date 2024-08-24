@@ -20,7 +20,7 @@ def get_db():
         db.close()
 
 
-@app.post("/products/", response_model=schemas.Product)
+@app.post("/product/", response_model=schemas.Product)
 def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     db_product = crud.get_product_by_name(db, product_name=product.name)
     if db_product:
@@ -28,7 +28,7 @@ def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)
     return crud.create_product(db=db, product=product)
 
 
-@app.post("/products-with-category/", response_model=schemas.Product)
+@app.post("/product-with-category/", response_model=schemas.Product)
 def create_product_with_category(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     db_product = crud.get_product_by_name(db, product_name=product.name)
     if db_product:
@@ -61,7 +61,7 @@ def read_products(skip: int = 0, limit: int = 100,
 
 
 
-@app.get("/products/{product_id}", response_model=schemas.Product)
+@app.get("/product/{product_id}", response_model=schemas.Product)
 def read_product_by_id(product_id: int, db: Session = Depends(get_db)):
     db_product = crud.get_product(db=db, product_id=product_id)
     if db_product is None:
@@ -93,7 +93,7 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
     return crud.delete_product(db=db, product_id=product_id)
 
 
-@app.post("/categories/", response_model=schemas.ProductCategory)
+@app.post("/category/", response_model=schemas.ProductCategory)
 def create_product_category(category: schemas.ProductCategoryCreate, db: Session = Depends(get_db)):
     db_category = crud.get_category_by_name(db, category_name=category.name)
     if db_category:
