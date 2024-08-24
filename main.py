@@ -117,12 +117,12 @@ def update_category(category_id: int, category: schemas.ProductCategoryUpdate, d
     return crud.update_category(db=db, category_id=category_id, category=category)
 
 
-@app.delete("/categoty/{category_id}", response_model=schemas.ProductCategory)
+@app.delete("/category/{category_id}", response_model=schemas.ProductCategory)
 def delete_category(category_id: int, db: Session = Depends(get_db)):
     db_category = crud.get_category(db=db, category_id=category_id)
     if db_category is None:
         raise HTTPException(status_code=404, detail="Product category not found")
-    return delete_category(category_id=category_id, db=db)
+    return crud.delete_category(category_id=category_id, db=db)
 
 
 @app.get("/")

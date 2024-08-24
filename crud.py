@@ -40,7 +40,8 @@ def update_product(db: Session, product_id: int, product: schemas.ProductUpdate)
     for key, value in update_data.items():
         setattr(db_product, key, value)
     db.commit()
-    db.refresh(db_product)    
+    db.refresh(db_product)
+    return db_product    
 
 
 def delete_product(db: Session, product_id: int):
