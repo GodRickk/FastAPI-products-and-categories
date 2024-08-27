@@ -1,20 +1,22 @@
 FROM python:3.12
 
-RUN mkdir /fastapi_app
+RUN apt-get update && apt-get install -y curl
+
+RUN mkdir /FastAPI-TestTask
 
 ENV POETRY_VERSION=1.8.0
 RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION
 
 ENV PATH="${PATH}:/root/.local/bin"
 
-WORKDIR /fastapi_app
+WORKDIR /FastAPI-TestTask
 
-COPY pyproject.toml poetry.lock* /fastapi_app/
+COPY pyproject.toml poetry.lock* /FastAPI-TestTask/
 
-RUN poetry install --no-root --no-dev
+RUN poetry install --no-root
 
-COPY . .
+COPY . /FastAPI-TestTask
 
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
