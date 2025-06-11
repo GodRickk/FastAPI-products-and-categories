@@ -6,6 +6,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./testtask.db:/fastapi_app/testtask.db  # Привязываем файл базы данных к контейнеру
+      - ./product-categories.db:/fastapi_app/product-categories.db  # Привязываем файл базы данных к контейнеру
     environment:
       - PYTHONUNBUFFERED=1
