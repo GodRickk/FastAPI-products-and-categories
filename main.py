@@ -1,15 +1,6 @@
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
-import crud
-
-from models.product import Product, ProductCreate, ProductUpdate
-from models.product_category import (
-    ProductCategory,
-    ProductCategoryCreate,
-    ProductCategoryUpdate,
-)
 from routers.product import router_product
 from routers.product_category import router_product_category
 
